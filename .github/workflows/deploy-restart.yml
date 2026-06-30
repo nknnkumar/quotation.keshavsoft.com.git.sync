@@ -1,9 +1,6 @@
 name: Deploy - Git Pull, npm install & Restart
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
