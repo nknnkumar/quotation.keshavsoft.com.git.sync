@@ -3,10 +3,24 @@ import { Client } from "ssh2";
 
 const ssh = new Client();
 
+const action = process.argv[2] || "pull";
+
+let command = `cd ${process.env.SSH_REPO_PATH} && git pull`;
+
+if (action === "install") {
+    command += " && npm install";
+} else if (action === "restart") {
+    command += " && npm install";
+    const restartCmd = process.env.SSH_RESTART_COMMAND || "pm2 restart all";
+    command += ` && ${restartCmd}`;
+}
+
+console.log(`Executing command on remote: ${command}`);
+
 ssh.on("ready", () => {
     console.log("Connected.");
 
-    ssh.exec(`cd ${process.env.SSH_REPO_PATH} && git pull`,
+    ssh.exec(command,
         (err, stream) => {
             if (err) throw err;
 

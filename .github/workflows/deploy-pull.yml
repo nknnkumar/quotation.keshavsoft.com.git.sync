@@ -1,9 +1,7 @@
-name: Deploy
+name: Deploy - Git Pull Only
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -18,7 +16,7 @@ jobs:
 
       - run: npm ci
 
-      - run: node index.js
+      - run: node index.js pull
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
