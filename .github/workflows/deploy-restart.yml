@@ -23,4 +23,4 @@ jobs:
           SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           SSH_REPO_PATH: ${{ secrets.SSH_REPO_PATH }}
-          SSH_RESTART_COMMAND: ${{ secrets.SSH_RESTART_COMMAND }}
+          SSH_RESTART_COMMAND: "sudo systemctl restart quotation.keshavsoft.com.service"
