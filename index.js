@@ -13,6 +13,9 @@ if (action === "install") {
     command += " && npm install";
     const restartCmd = process.env.SSH_RESTART_COMMAND || "pm2 restart all";
     command += ` && ${restartCmd}`;
+} else if (action === "pull-restart") {
+    const restartCmd = process.env.SSH_RESTART_COMMAND || "pm2 restart all";
+    command += ` && ${restartCmd}`;
 }
 
 console.log(`Executing command on remote: ${command}`);

@@ -1,0 +1,26 @@
+name: Deploy - Git Pull & Restart Only
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      - run: node index.js pull-restart
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          SSH_REPO_PATH: ${{ secrets.SSH_REPO_PATH }}
+          SSH_RESTART_COMMAND: "sudo systemctl restart quotation.keshavsoft.com.service"
